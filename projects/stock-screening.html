@@ -430,6 +430,9 @@
           <div>
             <p class="text-xs tracking-[0.22em] text-white/50">ITERATION</p>
             <h2 class="mt-2 text-xl font-semibold text-text">产品迭代路径（V1 → V3）</h2>
+            <p class="mt-3 border-l-2 border-blue-500 pl-4 text-sm text-gray-400">
+              核心目标：提高用户筛选自由度，降低用户使用门槛。
+            </p>
           </div>
           <p class="text-xs text-white/50">复盘式表达 · 漏斗化演进</p>
         </div>
@@ -441,15 +444,15 @@
               aria-hidden="true"
             ></div>
             <div class="flex items-baseline justify-between gap-4">
-              <h3 class="text-sm font-semibold text-text">AI 股票分析助手（V1）</h3>
+              <h3 class="text-sm font-semibold text-text">固定策略选股 (V1)</h3>
               <div class="shrink-0 font-mono text-xs text-white/45">Phase 1</div>
             </div>
-            <p class="mt-2 text-sm leading-relaxed text-white/70">
-              以“回答型能力”为主：生成摘要、给出建议，价值密度不稳定，容易偏离核心交易链路。
+            <p class="mt-2 mb-6 text-sm leading-relaxed text-white/70">
+              固定策略筛选得出股票池。
             </p>
-            <div class="mt-4">
+            <div>
               <img
-                src="assets/v1-screenshot.jpg"
+                src="/assets/v1-screenshot.jpg"
                 alt="V1 界面截图"
                 class="w-full max-w-2xl rounded-lg border border-gray-700/50 opacity-80 shadow-md transition-opacity duration-300 hover:opacity-100"
                 loading="lazy"
@@ -465,15 +468,15 @@
               aria-hidden="true"
             ></div>
             <div class="flex items-baseline justify-between gap-4">
-              <h3 class="text-sm font-semibold text-text">意图识别漏斗（V2）</h3>
+              <h3 class="text-sm font-semibold text-text">自定义条件选股 (V2)</h3>
               <div class="shrink-0 font-mono text-xs text-white/45">Phase 2</div>
             </div>
-            <p class="mt-2 text-sm leading-relaxed text-white/70">
-              把自然语言收敛为「可执行意图」：先解析出筛选维度与约束，再进入数据检索与组合逻辑，让结果更可控、可解释。
+            <p class="mt-2 mb-6 text-sm leading-relaxed text-white/70">
+              用户自定义筛选条件组合得出股票池。
             </p>
-            <div class="mt-4">
+            <div>
               <img
-                src="assets/v2-screenshot.jpg"
+                src="/assets/v2-screenshot.jpg"
                 alt="V2 界面截图"
                 class="w-full max-w-2xl rounded-lg border border-gray-700/50 opacity-80 shadow-md transition-opacity duration-300 hover:opacity-100"
                 loading="lazy"
@@ -489,12 +492,11 @@
               aria-hidden="true"
             ></div>
             <div class="flex items-baseline justify-between gap-4">
-              <h3 class="text-sm font-semibold text-text">前端动态传递 API 架构升级（V3）</h3>
+              <h3 class="text-sm font-semibold text-text">AI 意图驱动选股 (V3)</h3>
               <div class="shrink-0 font-mono text-xs text-white/45">Phase 3</div>
             </div>
             <p class="mt-2 text-sm leading-relaxed text-white/70">
-              解决“接口写死”的扩展瓶颈：将市场、指数、字段映射与筛选参数做成前端可配置的参数路由层，
-              支持海外指数与新数据源的快速扩充，形成商业级可持续迭代能力。
+              用户输入自然语言，由 LLM 识别得出筛选条件，转化为 SQL 语句筛选得出股票池。
             </p>
           </article>
         </div>
