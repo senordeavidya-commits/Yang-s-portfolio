@@ -683,7 +683,7 @@ LIMIT 30;`;
         }
 
         async function runIntentAnalysis(userInput) {
-          const resp = await fetch("/api/chat", {
+          const resp = await fetch('/api/chat', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userInput }),
