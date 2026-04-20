@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>[你的名字] · AI Fintech 产品经理</title>
+    <meta
+      name="description"
+      content="[你的名字] 的个人作品集主页｜AI Fintech 产品经理｜统计学与金融学背景｜自然语言意图筛选、特征工程与量化建模"
+    />
+
+    <!-- Tailwind CSS via CDN (no build) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: "#121212",
+              text: "#E5E5E5",
+              panel: "rgba(255,255,255,0.04)",
+              border: "rgba(255,255,255,0.10)",
+              glow: "rgba(99,102,241,0.30)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg: #121212;
+        --text: #e5e5e5;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background: radial-gradient(
+            1200px 900px at 80% -10%,
+            rgba(99, 102, 241, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 700px at 10% 10%,
+            rgba(16, 185, 129, 0.10),
+            transparent 50%
+          ),
+          radial-gradient(
+            900px 700px at 90% 90%,
+            rgba(236, 72, 153, 0.08),
+            transparent 55%
+          ),
+          var(--bg);
+        color: var(--text);
+      }
+
+      /* Subtle tech grid */
+      .bg-grid {
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px
+          );
+        background-size: 48px 48px;
+        mask-image: radial-gradient(
+          900px 700px at 45% 25%,
+          rgba(0, 0, 0, 1),
+          transparent 72%
+        );
+        -webkit-mask-image: radial-gradient(
+          900px 700px at 45% 25%,
+          rgba(0, 0, 0, 1),
+          transparent 72%
+        );
+      }
+
+      /* Better anchor offset for sticky sidebar on mobile */
+      section[id] {
+        scroll-margin-top: 88px;
+      }
+
+      /* Focus rings */
+      .focus-ring:focus-visible {
+        outline: 2px solid rgba(99, 102, 241, 0.85);
+        outline-offset: 2px;
+      }
+
+      /* Improve selection */
+      ::selection {
+        background: rgba(99, 102, 241, 0.35);
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-full antialiased">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 bg-grid opacity-60"></div>
+
+    <div class="relative mx-auto w-full max-w-6xl px-5 py-8 sm:px-8 sm:py-10">
+      <div class="grid gap-8 lg:grid-cols-[30%_70%]">
+        <!-- Sidebar -->
+        <aside
+          class="lg:sticky lg:top-10 lg:self-start"
+          aria-label="侧边栏导航与简介"
+        >
+          <div
+            class="rounded-2xl border border-border bg-white/5 p-6 backdrop-blur-xl"
+          >
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="inline-flex items-center gap-2">
+                  <span
+                    class="inline-block h-2.5 w-2.5 rounded-full bg-indigo-400 shadow-[0_0_28px_rgba(99,102,241,0.65)]"
+                    aria-hidden="true"
+                  ></span>
+                  <p class="text-xs tracking-[0.18em] text-white/60">PORTFOLIO</p>
+                </div>
+                <h1 class="mt-3 text-xl font-semibold text-text">
+                  [你的名字] · AI Fintech 产品经理
+                </h1>
+                <p class="mt-2 text-sm leading-relaxed text-white/70">
+                  具备统计学与金融学复合背景，擅长复杂业务的特征工程与量化建模。熟练运用
+                  Cursor、Bolt、Dify 等工具构建智能化业务流，专注于将非结构化数据与自然语言转化为精准的可执行逻辑。具备海外视野，目标瞄准日本等全球金融科技市场。
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3">
+              <a
+                class="focus-ring group inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-text transition hover:border-white/20 hover:bg-white/8 active:scale-[0.99]"
+                href="./resume.pdf"
+                download
+              >
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-300 ring-1 ring-indigo-400/20 transition group-hover:bg-indigo-500/20"
+                  aria-hidden="true"
+                >
+                  ⬇
+                </span>
+                下载简历（resume.pdf）
+              </a>
+              <div
+                class="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-xs text-white/60"
+              >
+                提示：点击导航可平滑滚动；滚动内容时，左侧会自动高亮当前章节。
+              </div>
+            </div>
+
+            <nav class="mt-6" aria-label="页面导航">
+              <p class="text-xs font-medium tracking-[0.22em] text-white/50">
+                SECTIONS
+              </p>
+              <ul class="mt-3 space-y-1.5">
+                <li>
+                  <a
+                    class="focus-ring nav-link block rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/6 hover:text-text"
+                    href="#about"
+                    data-target="about"
+                  >
+                    概览 / 教育与素质
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="focus-ring nav-link block rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/6 hover:text-text"
+                    href="#project-1"
+                    data-target="project-1"
+                  >
+                    项目一：自然语言智能选股平台
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="focus-ring nav-link block rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/6 hover:text-text"
+                    href="#project-2"
+                    data-target="project-2"
+                  >
+                    项目二：多维战力特征量化系统
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="focus-ring nav-link block rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/6 hover:text-text"
+                    href="#project-3"
+                    data-target="project-3"
+                  >
+                    项目三：LangChain 数字孪生系统
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <div class="mt-6 border-t border-white/10 pt-4">
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70"
+                  >AI Fintech</span
+                >
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70"
+                  >Intent Modeling</span
+                >
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70"
+                  >Quant</span
+                >
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white/70"
+                  >Global-ready</span
+                >
+              </div>
+              <p class="mt-3 text-xs text-white/45">
+                © <span id="year"></span> [你的名字] · Built as a single static HTML file
+              </p>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="min-w-0" aria-label="右侧内容区">
+          <!-- Header strip -->
+          <div
+            class="mb-6 rounded-2xl border border-white/10 bg-black/20 p-5 backdrop-blur-xl"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p class="text-xs tracking-[0.22em] text-white/50">
+                  AI PRODUCT CASES
+                </p>
+                <h2 class="mt-2 text-lg font-semibold text-text">
+                  把自然语言变成可执行的业务逻辑
+                </h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+                >
+                  <span
+                    class="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.55)]"
+                    aria-hidden="true"
+                  ></span>
+                  Shipping-minded · System-driven
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: About -->
+          <section
+            id="about"
+            class="rounded-2xl border border-border bg-white/5 p-6 backdrop-blur-xl"
+          >
+            <header class="flex items-end justify-between gap-4">
+              <div class="min-w-0">
+                <h3 class="text-base font-semibold text-text">教育与素质</h3>
+                <p class="mt-2 text-sm leading-relaxed text-white/70">
+                  以统计与金融学方法论拆解复杂业务，擅长把非结构化表达转化为可执行、可追溯、可迭代的产品逻辑与指标体系。
+                </p>
+              </div>
+            </header>
+
+            <!-- Education -->
+            <div class="mt-6">
+              <p class="text-xs font-medium tracking-[0.22em] text-white/50">教育背景</p>
+
+              <div class="mt-4 border-l border-gray-800 pl-4">
+                <!-- Experience 1 -->
+                <div class="relative pb-6">
+                  <div
+                    class="absolute -left-[9px] top-1.5 h-2.5 w-2.5 rounded-full bg-indigo-400/70 ring-1 ring-white/10"
+                    aria-hidden="true"
+                  ></div>
+                  <div class="flex items-baseline justify-between gap-4">
+                    <div class="min-w-0 text-sm font-semibold text-text">上海财经大学</div>
+                    <div class="shrink-0 font-mono text-xs text-white/45">
+                      2021.09 - 2024.06
+                    </div>
+                  </div>
+                  <div class="mt-1 text-sm text-white/70">金融硕士</div>
+                  <ul class="mt-3 space-y-1 text-xs text-gray-400">
+                    <li class="flex gap-2">
+                      <span class="shrink-0 text-gray-500">◦</span>
+                      <span>硕士一等奖学金——2021</span>
+                    </li>
+                    <li class="flex gap-2">
+                      <span class="shrink-0 text-gray-500">◦</span>
+                      <span>台湾学生国家二等奖学金——2021</span>
+                    </li>
+                    <li class="flex gap-2">
+                      <span class="shrink-0 text-gray-500">◦</span>
+                      <span>硕士二等奖学金——2022</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="border-t border-white/10"></div>
+
+                <!-- Experience 2 -->
+                <div class="relative pt-6">
+                  <div
+                    class="absolute -left-[9px] top-[28px] h-2.5 w-2.5 rounded-full bg-white/30 ring-1 ring-white/10"
+                    aria-hidden="true"
+                  ></div>
+                  <div class="flex items-baseline justify-between gap-4">
+                    <div class="min-w-0 text-sm font-semibold text-text">华东师范大学</div>
+                    <div class="shrink-0 font-mono text-xs text-white/45">
+                      2017.09 - 2021.06
+                    </div>
+                  </div>
+                  <div class="mt-1 text-sm text-white/70">经济学本科</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quality -->
+            <div class="mt-7">
+              <p class="text-xs font-medium tracking-[0.22em] text-white/50">综合素质</p>
+
+              <div class="mt-4 grid gap-0 md:grid-cols-5 md:divide-x md:divide-white/10">
+                <!-- Left column (60%) -->
+                <div class="md:col-span-3">
+                  <div class="divide-y divide-white/10 border border-white/10 md:border-0 md:pr-5">
+                    <div class="px-4 py-4">
+                      <p class="text-sm font-medium text-text">敏捷开发 &amp; AI 工具流</p>
+                      <p class="mt-2 text-sm leading-relaxed text-white/70">
+                        熟练运用 Cursor、Bolt.new、Dify 等工具构建智能化业务流，具备独立搭建复杂高保真原型与自动化处理程序的能力，缩短从需求到 Demo 和 MVP 的周期。
+                      </p>
+                    </div>
+                    <div class="px-4 py-4">
+                      <p class="text-sm font-medium text-text">量化分析 &amp; 特征工程</p>
+                      <p class="mt-2 text-sm leading-relaxed text-white/70">
+                        扎实的数理与金融功底，擅长在复杂、多维的数据环境下（如期权定价模型、肥尾分布等），将非结构化机制转化为可精准量化的特征体系。
+                      </p>
+                    </div>
+                    <div class="px-4 py-4">
+                      <p class="text-sm font-medium text-text">数据处理 &amp; 业务意图解析</p>
+                      <p class="mt-2 text-sm leading-relaxed text-white/70">
+                        擅长利用 LLM 语义理解能力进行非结构化数据清洗与筛选；对自然语言等非标准需求场景有深刻理解，能将自然语言需求精准解析为后台可执行的检索策略。
+                      </p>
+                    </div>
+                    <div class="px-4 py-4">
+                      <p class="text-sm font-medium text-text">前沿信息 &amp; 技术敏感度</p>
+                      <p class="mt-2 text-sm leading-relaxed text-white/70">
+                        持续关注 OpenAI、Anthropic 等底层能力演进，应用 LangChain 等框架探索数字孪生等前沿场景，建立完善的业务验证与评估流程。
+                      </p>
+
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">Python</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">SQL</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">Cursor</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">Bolt.new</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">Dify</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">LangChain</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">意图识别</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">特征工程</span>
+                        <span class="border border-gray-700 px-3 py-1 text-sm text-gray-300">金融建模</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right column (40%) -->
+                <div class="mt-5 border-t border-white/10 pt-5 md:col-span-2 md:mt-0 md:border-t-0 md:pl-5 md:pt-0">
+                  <div class="border border-white/10">
+                    <div class="grid grid-cols-2 divide-x divide-y divide-white/10">
+                      <div class="p-4">
+                        <p class="text-sm font-medium text-text">底层逻辑</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white/70">
+                          依托统计与金融学思维解构复杂业务。
+                        </p>
+                      </div>
+                      <div class="p-4">
+                        <p class="text-sm font-medium text-text">快速迭代</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white/70">
+                          运用 AI 工具流缩短概念到落地周期。
+                        </p>
+                      </div>
+                      <div class="p-4">
+                        <p class="text-sm font-medium text-text">数据驱动</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white/70">
+                          用客观数据与分布特征支撑产品决策。
+                        </p>
+                      </div>
+                      <div class="p-4">
+                        <p class="text-sm font-medium text-text">跨界学习</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white/70">
+                          保持对新技术与海外市场的高频输入。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <blockquote class="mt-5 border-l-2 border-gray-500 pl-4">
+                    <p class="text-sm italic leading-relaxed text-white/70">
+                      「在复杂的业务博弈中寻找最优解，用 AI 工具重塑产品边界。」
+                    </p>
+                    <footer class="mt-2 text-sm text-white/60">— [你的名字]</footer>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Projects -->
+          <div class="mt-8 grid gap-6">
+            <!-- Project 1 -->
+            <section
+              id="project-1"
+              class="group rounded-2xl border border-border bg-white/5 p-6 backdrop-blur-xl transition hover:border-white/20"
+            >
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class="inline-flex items-center rounded-full border border-indigo-400/25 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-200"
+                      >Natural Language</span
+                    >
+                    <span
+                      class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+                      >Intent-based Screening</span
+                    >
+                  </div>
+                  <h3 class="mt-3 text-lg font-semibold text-text">
+                    自然语言智能选股平台
+                  </h3>
+                  <p class="mt-2 text-sm leading-relaxed text-white/70">
+                    将业务重心从宽泛的「AI 摘要」转变为更硬核的自然语言意图筛选（Intent-based Screening）：
+                    用户用自然语言表达筛选条件，系统将其稳定映射为可执行的筛选逻辑与可追溯的参数集合。
+                  </p>
+                </div>
+                <div class="shrink-0">
+                  <div
+                    class="rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-white/65"
+                  >
+                    关键能力：参数化架构
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 rounded-xl border border-white/10 bg-black/20 p-4">
+                <p class="text-sm font-medium text-text">核心亮点</p>
+                <p class="mt-2 text-sm leading-relaxed text-white/70">
+                  设计了支持前端动态传递 API 参数的底层架构，彻底解决接口写死导致的海外指数数据获取瓶颈：
+                  让「新市场 / 新指数 / 新筛选维度」的扩展从改接口变成改配置与参数映射，显著提升迭代速度。
+                </p>
+              </div>
+
+              <div class="mt-5 flex flex-wrap items-center gap-3">
+                <a
+                  class="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-indigo-400/25 bg-indigo-500/10 px-4 py-2.5 text-sm font-medium text-indigo-200 transition hover:bg-indigo-500/15 hover:text-indigo-100 active:scale-[0.99]"
+                  href="./projects/stock-screening.html"
+                >
+                  查看交互 Demo
+                  <span aria-hidden="true" class="text-indigo-200/80">→</span>
+                </a>
+                <span class="text-xs text-white/45"
+                  >链接：./projects/stock-screening.html</span
+                >
+              </div>
+            </section>
+
+            <!-- Project 2 -->
+            <section
+              id="project-2"
+              class="group rounded-2xl border border-border bg-white/5 p-6 backdrop-blur-xl transition hover:border-white/20"
+            >
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class="inline-flex items-center rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200"
+                      >Quant Features</span
+                    >
+                    <span
+                      class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+                      >Game Dynamics</span
+                    >
+                  </div>
+                  <h3 class="mt-3 text-lg font-semibold text-text">
+                    多维战力特征量化系统
+                  </h3>
+                  <p class="mt-2 text-sm leading-relaxed text-white/70">
+                    在复杂博弈场景下进行多维度的数值建模：将策略空间、对抗关系与动态环境因素拆解为可计算的特征集，
+                    让战力评估从主观经验转向结构化、可解释、可校准的评分体系。
+                  </p>
+                </div>
+                <div class="shrink-0">
+                  <div
+                    class="rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-white/65"
+                  >
+                    关键能力：多维评分
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 rounded-xl border border-white/10 bg-black/20 p-4">
+                <p class="text-sm font-medium text-text">核心亮点</p>
+                <p class="mt-2 text-sm leading-relaxed text-white/70">
+                  将弹道物理机制、控制指数等抽象机制，结合胜率分布进行精细化的特征提取与量化打分：通过分布视角减少「均值陷阱」，
+                  让极端值、对局阶段性与局部优势被正确计入决策。
+                </p>
+              </div>
+
+              <div class="mt-5 flex flex-wrap items-center gap-3">
+                <a
+                  class="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/5 px-4 py-2.5 text-sm font-medium text-text transition hover:bg-white/8 hover:border-white/20 active:scale-[0.99]"
+                  href="./projects/hero-quantization.html"
+                >
+                  查看项目页面
+                  <span aria-hidden="true" class="text-white/70">→</span>
+                </a>
+                <span class="text-xs text-white/45"
+                  >链接：./projects/hero-quantization.html</span
+                >
+              </div>
+            </section>
+
+            <!-- Project 3 -->
+            <section
+              id="project-3"
+              class="group rounded-2xl border border-border bg-white/5 p-6 backdrop-blur-xl transition hover:border-white/20"
+            >
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class="inline-flex items-center rounded-full border border-pink-400/25 bg-pink-500/10 px-3 py-1 text-xs font-medium text-pink-200"
+                      >LangChain</span
+                    >
+                    <span
+                      class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+                      >Persona / Workflow</span
+                    >
+                  </div>
+                  <h3 class="mt-3 text-lg font-semibold text-text">
+                    LangChain 数字孪生系统
+                  </h3>
+                  <p class="mt-2 text-sm leading-relaxed text-white/70">
+                    构建社媒 Persona 拟真与自动交互逻辑，处理复杂流程式对话：通过记忆结构、意图路由与工具调用编排，
+                    让对话既具备人设一致性，又能够在多轮中稳定完成任务闭环。
+                  </p>
+                </div>
+                <div class="shrink-0">
+                  <div
+                    class="rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-white/65"
+                  >
+                    关键能力：对话编排
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 flex flex-wrap items-center gap-3">
+                <a
+                  class="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/5 px-4 py-2.5 text-sm font-medium text-text transition hover:bg-white/8 hover:border-white/20 active:scale-[0.99]"
+                  href="./projects/digital-twin.html"
+                >
+                  查看项目页面
+                  <span aria-hidden="true" class="text-white/70">→</span>
+                </a>
+                <span class="text-xs text-white/45"
+                  >链接：./projects/digital-twin.html</span
+                >
+              </div>
+            </section>
+          </div>
+
+          <!-- Footer note -->
+          <div class="mt-10 rounded-2xl border border-white/10 bg-black/20 p-5 text-sm text-white/65">
+            <p class="leading-relaxed">
+              如果你希望我把三个项目页面（./projects/*.html）也一并补齐成同风格的静态交互稿，我也可以继续生成对应页面结构与交互细节（同样无需构建工具）。
+            </p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const yearEl = document.getElementById("year");
+        if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+        const links = Array.from(document.querySelectorAll(".nav-link"));
+        const sections = links
+          .map((a) => document.getElementById(a.dataset.target || ""))
+          .filter(Boolean);
+
+        function setActive(id) {
+          for (const a of links) {
+            const isActive = (a.dataset.target || "") === id;
+            a.classList.toggle("bg-white/8", isActive);
+            a.classList.toggle("text-text", isActive);
+            a.classList.toggle("text-white/70", !isActive);
+            a.setAttribute("aria-current", isActive ? "true" : "false");
+          }
+        }
+
+        // Smooth scroll (native behavior, but with robust handling)
+        for (const a of links) {
+          a.addEventListener("click", (e) => {
+            const targetId = a.getAttribute("href")?.slice(1);
+            const el = targetId ? document.getElementById(targetId) : null;
+            if (!el) return;
+            e.preventDefault();
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState(null, "", "#" + targetId);
+          });
+        }
+
+        // Scroll spy: highlight current section
+        const io = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((e) => e.isIntersecting)
+              .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0))[0];
+            if (visible?.target?.id) setActive(visible.target.id);
+          },
+          {
+            root: null,
+            rootMargin: "-15% 0px -70% 0px",
+            threshold: [0.08, 0.12, 0.18, 0.25, 0.33],
+          }
+        );
+        for (const s of sections) io.observe(s);
+
+        // Initial state
+        const initial = location.hash?.slice(1);
+        if (initial && document.getElementById(initial)) {
+          setActive(initial);
+          // Defer to ensure layout stable on first load
+          setTimeout(() => {
+            document.getElementById(initial)?.scrollIntoView({ block: "start" });
+          }, 0);
+        } else if (sections[0]?.id) {
+          setActive(sections[0].id);
+        }
+      })();
+    </script>
+  </body>
+</html>

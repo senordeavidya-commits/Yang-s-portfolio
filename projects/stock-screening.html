@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>PROJECT 01 · 智能选股引擎</title>
+    <meta
+      name="description"
+      content="智能选股引擎｜自然语言意图选股系统｜DeepSeek 意图解析｜JSON 因子提取｜SQL 策略生成｜交互演示"
+    />
+
+    <!-- Tailwind CSS via CDN (no build) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: "#121212",
+              text: "#E5E5E5",
+              border: "rgba(255,255,255,0.10)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg: #121212;
+        --text: #e5e5e5;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background: radial-gradient(
+            1100px 900px at 80% -10%,
+            rgba(99, 102, 241, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 700px at 12% 8%,
+            rgba(16, 185, 129, 0.1),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 700px at 90% 95%,
+            rgba(236, 72, 153, 0.08),
+            transparent 55%
+          ),
+          var(--bg);
+        color: var(--text);
+      }
+
+      .bg-grid {
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px
+          );
+        background-size: 48px 48px;
+        mask-image: radial-gradient(
+          900px 700px at 45% 15%,
+          rgba(0, 0, 0, 1),
+          transparent 72%
+        );
+        -webkit-mask-image: radial-gradient(
+          900px 700px at 45% 15%,
+          rgba(0, 0, 0, 1),
+          transparent 72%
+        );
+      }
+
+      .focus-ring:focus-visible {
+        outline: 2px solid rgba(99, 102, 241, 0.85);
+        outline-offset: 2px;
+      }
+
+      section[id] {
+        scroll-margin-top: 96px;
+      }
+
+      /* Lightweight code "highlight" look */
+      .code-surface {
+        background: rgba(0, 0, 0, 0.25);
+      }
+      ::selection {
+        background: rgba(99, 102, 241, 0.35);
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-full antialiased">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 bg-grid opacity-60"></div>
+
+    <header class="sticky top-0 z-30 border-b border-white/10 bg-black/20 backdrop-blur-xl">
+      <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+        <a
+          class="focus-ring inline-flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-white/70 transition hover:bg-white/10 hover:text-text"
+          href="../index.html"
+        >
+          <span aria-hidden="true" class="text-white/60">←</span>
+          返回作品集
+        </a>
+        <div class="flex items-center gap-3">
+          <span
+            class="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/65"
+          >
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400/90" aria-hidden="true"></span>
+            Live Mock Demo
+          </span>
+          <a
+            class="focus-ring inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-text transition hover:bg-white/10"
+            href="#demo"
+          >
+            跳转到 Demo
+            <span aria-hidden="true" class="text-white/70">↓</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="relative mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
+      <!-- Header Area -->
+      <section class="grid gap-8 border border-white/10 p-6 sm:p-8 lg:grid-cols-12">
+        <div class="lg:col-span-8">
+          <p class="text-xs tracking-[0.22em] text-white/55">PROJECT 01 · 商业级 AI 产品</p>
+          <h1 class="mt-4 text-4xl font-semibold leading-[1.06] text-text sm:text-6xl">
+            智能选股引擎
+          </h1>
+          <p class="mt-4 text-lg text-white/75">自然语言意图选股系统</p>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-white/70">
+            聚焦核心交易链路，摒弃无用的 AI 财报生成。通过 LLM 精准解析自然语言，动态下发 API 参数，
+            无缝连接后端的量化数据源（如 AkShare 等）。
+          </p>
+
+          <div class="mt-7 grid gap-0 border border-white/10 sm:grid-cols-3 sm:divide-x sm:divide-white/10">
+            <div class="p-4">
+              <p class="text-xs tracking-[0.22em] text-white/50">POSITIONING</p>
+              <p class="mt-2 text-sm text-white/75">Intent-based Screening</p>
+            </div>
+            <div class="p-4">
+              <p class="text-xs tracking-[0.22em] text-white/50">ARCH</p>
+              <p class="mt-2 text-sm text-white/75">Front Param → API Router</p>
+            </div>
+            <div class="p-4">
+              <p class="text-xs tracking-[0.22em] text-white/50">DATA</p>
+              <p class="mt-2 text-sm text-white/75">AkShare / Indices / Factors</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4">
+          <div class="h-full border border-white/10 p-5">
+            <p class="text-xs tracking-[0.22em] text-white/50">ACTION</p>
+            <p class="mt-3 text-sm leading-relaxed text-white/70">
+              这是一个可双击运行的静态交互 Mock。点击按钮后模拟大模型解析与参数下发，随后填充 JSON 与 AkShare 调度代码。
+            </p>
+            <a
+              class="focus-ring mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-text transition hover:bg-white/10 active:scale-[0.99]"
+              href="#demo"
+              id="scrollToDemo"
+            >
+              <span aria-hidden="true">↓</span>
+              滚动体验在线 Demo
+            </a>
+
+            <div class="mt-5 border-t border-white/10 pt-4 text-xs text-white/55">
+              <p class="font-mono">Latency (mock): 1.2s – 1.8s</p>
+              <p class="mt-2">Output: JSON Strategy + AkShare Call</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Grid -->
+      <section id="features" class="mt-10">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs tracking-[0.22em] text-white/50">FEATURES</p>
+            <h2 class="mt-2 text-xl font-semibold text-text">核心功能宫格</h2>
+          </div>
+          <p class="text-xs text-white/50">细线网格 · 清晰层级 · 可扩展</p>
+        </div>
+
+        <div class="mt-5 grid gap-0 border border-white/10 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="border-b border-white/10 p-5 sm:border-r sm:border-b lg:border-r">
+            <p class="text-xs font-mono text-white/50">F.01</p>
+            <h3 class="mt-2 text-sm font-semibold text-text">意图降维解析</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              将自然语言转化为标准 JSON 策略，收敛为可执行参数集合（可追溯、可复现、可校验）。
+            </p>
+          </article>
+
+          <article class="border-b border-white/10 p-5 lg:border-r">
+            <p class="text-xs font-mono text-white/50">F.02</p>
+            <h3 class="mt-2 text-sm font-semibold text-text">动态 API 架构</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              突破硬编码限制：参数由前端动态传递，支持海外指数扩充与新增筛选维度的低成本迭代。
+            </p>
+          </article>
+
+          <article class="border-b border-white/10 p-5 sm:border-b lg:border-b-0">
+            <p class="text-xs font-mono text-white/50">F.03</p>
+            <h3 class="mt-2 text-sm font-semibold text-text">多模态因子融合</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              兼容基本面与技术面：估值、成长、波动、趋势等因子可并行组合，形成可解释的筛选漏斗。
+            </p>
+          </article>
+
+          <article class="border-b border-white/10 p-5 sm:border-r sm:border-b-0 lg:border-r">
+            <p class="text-xs font-mono text-white/50">F.04</p>
+            <h3 class="mt-2 text-sm font-semibold text-text">敏捷闭环验证</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              Next.js + Python 架构：前端快速试错与交互验证，后端策略路由与数据源适配并行迭代。
+            </p>
+          </article>
+
+          <article class="border-b border-white/10 p-5 sm:border-b-0 lg:border-r lg:border-b-0">
+            <p class="text-xs font-mono text-white/50">F.05</p>
+            <h3 class="mt-2 text-sm font-semibold text-text">可观测与可回放</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              记录「输入 → 意图 → 参数 → 数据 → 结果」，支持实验复盘、线上问题定位与策略迭代对比。
+            </p>
+          </article>
+
+          <article class="p-5">
+            <p class="text-xs font-mono text-white/50">F.06</p>
+            <h3 class="mt-2 text-sm font-semibold text-text">海外市场扩展</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              将指数、市场与数据源抽象为配置：扩展到日本/美股等市场时，不再重构主流程。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Live Demo Area -->
+      <section id="demo" class="mt-10">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs tracking-[0.22em] text-white/50">LIVE DEMO</p>
+            <h2 class="mt-2 text-xl font-semibold text-text">互动演示区</h2>
+          </div>
+          <p class="hidden text-xs text-white/50 sm:block">Intent → SQL → DB Result (Demo)</p>
+        </div>
+
+        <!-- Upper: intent parsing + SQL generation (strict two-column grid) -->
+        <div class="mt-5 grid grid-cols-1 gap-0 border border-white/10 lg:grid-cols-2">
+          <!-- Left: Natural language input -->
+          <div class="border-b border-white/10 p-6 lg:border-b-0 lg:border-r">
+            <div class="flex items-center justify-between gap-4">
+              <p class="text-xs font-mono text-white/50">INPUT</p>
+              <span class="inline-flex items-center gap-2 text-xs text-white/55">
+                <span
+                  id="statusDot"
+                  class="h-1.5 w-1.5 rounded-full bg-white/30"
+                  aria-hidden="true"
+                ></span>
+                <span id="statusText">Ready</span>
+              </span>
+            </div>
+
+            <h3 class="mt-3 text-sm font-semibold text-text">自然语言输入框</h3>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              输入一句话，系统将其解析为「业务字段 JSON」，并自动生成可执行的 SQL 查询策略（符合投研数据仓库检索习惯）。
+            </p>
+
+            <label class="mt-4 block text-xs tracking-[0.22em] text-white/50" for="nlInput">
+              PROMPT
+            </label>
+            <textarea
+              id="nlInput"
+              class="focus-ring mt-2 min-h-[220px] w-full resize-y rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-text placeholder:text-white/35"
+              placeholder="试着输入：寻找市盈率小于20，且上周五放量突破的科技股..."
+            ></textarea>
+
+            <div class="mt-4 flex flex-wrap items-center gap-3">
+              <button
+                id="runBtn"
+                class="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-indigo-400/25 bg-indigo-500/10 px-4 py-2.5 text-sm font-semibold text-indigo-200 transition hover:bg-indigo-500/15 hover:text-indigo-100 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+                type="button"
+              >
+                <span id="runIcon" aria-hidden="true">▶</span>
+                <span id="runLabel">执行意图解析 (Run Analysis)</span>
+              </button>
+
+              <button
+                id="fillExampleBtn"
+                class="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-medium text-text transition hover:bg-white/10 active:scale-[0.99]"
+                type="button"
+              >
+                填入示例
+              </button>
+
+              <button
+                id="clearBtn"
+                class="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-medium text-text transition hover:bg-white/10 active:scale-[0.99]"
+                type="button"
+              >
+                清空
+              </button>
+            </div>
+
+            <div class="mt-5 border-t border-white/10 pt-4 text-xs text-white/55">
+              <p class="font-mono">Hint: 解析结果会联动生成 SQL，并触发展示下方的结果表。</p>
+            </div>
+          </div>
+
+          <!-- Right: Outputs (stacked) -->
+          <div class="p-6">
+            <div class="grid gap-0 border border-white/10">
+              <!-- JSON Factors -->
+              <div class="border-b border-white/10 p-4">
+                <div class="flex items-center justify-between gap-4">
+                  <p class="text-xs font-mono text-white/50">AI 意图因子提取 (JSON)</p>
+                  <button
+                    id="copyJsonBtn"
+                    class="focus-ring inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 transition hover:bg-white/10"
+                    type="button"
+                  >
+                    复制
+                    <span aria-hidden="true" class="text-white/60">⎘</span>
+                  </button>
+                </div>
+                <pre class="code-surface mt-3 max-h-[170px] overflow-x-auto overflow-y-auto rounded-xl border border-white/10 p-3 text-xs leading-relaxed">
+<code id="jsonOut" class="text-white/75">{
+  "status": "idle",
+  "message": "点击左侧按钮开始解析"
+}</code></pre>
+              </div>
+
+              <!-- SQL Strategy -->
+              <div class="p-4">
+                <div class="flex items-center justify-between gap-4">
+                  <p class="text-xs font-mono text-white/50">自动生成 SQL 查询策略</p>
+                  <button
+                    id="copySqlBtn"
+                    class="focus-ring inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 transition hover:bg-white/10"
+                    type="button"
+                  >
+                    复制
+                    <span aria-hidden="true" class="text-white/60">⎘</span>
+                  </button>
+                </div>
+                <pre class="code-surface mt-3 max-h-[170px] overflow-x-auto overflow-y-auto rounded-xl border border-white/10 p-3 text-xs leading-relaxed">
+<code id="sqlOut" class="text-white/75">-- SQL will be generated here
+-- 示例：SELECT ts_code, name FROM stock_basic ... WHERE pe_ttm &lt; 20;</code></pre>
+              </div>
+            </div>
+
+            <div class="mt-4 text-xs text-white/55">
+              <p>
+                说明：真实投研环境通常以内部 SQL 数据仓库为主。此处展示「自然语言 → JSON 因子 → SQL 策略」链路，并在下方模拟查询结果回传。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower: result table (hidden by default) -->
+        <div id="resultsPanel" class="mt-6 hidden border border-white/10">
+          <div class="border-b border-white/10 p-5">
+            <div class="rounded-xl border border-orange-400/30 bg-orange-500/10 px-4 py-3 text-sm text-orange-200">
+              ⚠️ 声明：此列表为前端预设的 Demo 随机数据，仅用于演示系统的【自然语言 → SQL 策略 → 数据库检索】完整闭环，不构成投资建议且与真实市场无关。
+            </div>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-end justify-between gap-4">
+              <div>
+                <p class="text-xs tracking-[0.22em] text-white/50">RESULTS</p>
+                <h3 class="mt-2 text-base font-semibold text-text">股票筛选结果展示</h3>
+              </div>
+              <p class="text-xs text-white/50">Mock rows · Static</p>
+            </div>
+
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="text-left text-xs text-white/55">
+                    <th class="border-b border-gray-800 pb-3 pr-4 font-medium">股票代码</th>
+                    <th class="border-b border-gray-800 pb-3 pr-4 font-medium">股票简称</th>
+                    <th class="border-b border-gray-800 pb-3 pr-4 font-medium">自然语言意图映射</th>
+                    <th class="border-b border-gray-800 pb-3 font-medium">当前状态/数值</th>
+                  </tr>
+                </thead>
+                <tbody class="text-white/75">
+                  <tr>
+                    <td class="border-b border-gray-800 py-3 pr-4 font-mono text-xs text-white/70">600***</td>
+                    <td class="border-b border-gray-800 py-3 pr-4">某科技股</td>
+                    <td class="border-b border-gray-800 py-3 pr-4">
+                      <span class="text-blue-400">“市盈率小于20”</span> → <span class="font-mono text-xs text-white/60">[SQL: pe_ttm &lt; 20]</span>
+                    </td>
+                    <td class="border-b border-gray-800 py-3">PE=16.8</td>
+                  </tr>
+                  <tr>
+                    <td class="border-b border-gray-800 py-3 pr-4 font-mono text-xs text-white/70">002***</td>
+                    <td class="border-b border-gray-800 py-3 pr-4">某黄金企业</td>
+                    <td class="border-b border-gray-800 py-3 pr-4">
+                      <span class="text-blue-400">“黄金相关产业”</span> → <span class="font-mono text-xs text-white/60">[SQL: industry LIKE '%贵金属%']</span>
+                    </td>
+                    <td class="border-b border-gray-800 py-3">行业匹配</td>
+                  </tr>
+                  <tr>
+                    <td class="border-b border-gray-800 py-3 pr-4 font-mono text-xs text-white/70">300***</td>
+                    <td class="border-b border-gray-800 py-3 pr-4">某通讯龙头</td>
+                    <td class="border-b border-gray-800 py-3 pr-4">
+                      <span class="text-blue-400">“上周五放量”</span> → <span class="font-mono text-xs text-white/60">[SQL: vol &gt; ma_vol_5]</span>
+                    </td>
+                    <td class="border-b border-gray-800 py-3">放量比 2.1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section id="timeline" class="mt-10">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-xs tracking-[0.22em] text-white/50">ITERATION</p>
+            <h2 class="mt-2 text-xl font-semibold text-text">产品迭代路径（V1 → V3）</h2>
+          </div>
+          <p class="text-xs text-white/50">复盘式表达 · 漏斗化演进</p>
+        </div>
+
+        <div class="mt-5 border-l border-gray-800 pl-4">
+          <article class="relative pb-6">
+            <div
+              class="absolute -left-[9px] top-1.5 h-2.5 w-2.5 rounded-full bg-white/30 ring-1 ring-white/10"
+              aria-hidden="true"
+            ></div>
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="text-sm font-semibold text-text">AI 股票分析助手（V1）</h3>
+              <div class="shrink-0 font-mono text-xs text-white/45">Phase 1</div>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              以“回答型能力”为主：生成摘要、给出建议，价值密度不稳定，容易偏离核心交易链路。
+            </p>
+          </article>
+
+          <div class="border-t border-white/10"></div>
+
+          <article class="relative py-6">
+            <div
+              class="absolute -left-[9px] top-[28px] h-2.5 w-2.5 rounded-full bg-indigo-400/70 ring-1 ring-white/10"
+              aria-hidden="true"
+            ></div>
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="text-sm font-semibold text-text">意图识别漏斗（V2）</h3>
+              <div class="shrink-0 font-mono text-xs text-white/45">Phase 2</div>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              把自然语言收敛为「可执行意图」：先解析出筛选维度与约束，再进入数据检索与组合逻辑，让结果更可控、可解释。
+            </p>
+          </article>
+
+          <div class="border-t border-white/10"></div>
+
+          <article class="relative pt-6">
+            <div
+              class="absolute -left-[9px] top-[28px] h-2.5 w-2.5 rounded-full bg-emerald-400/80 ring-1 ring-white/10"
+              aria-hidden="true"
+            ></div>
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="text-sm font-semibold text-text">前端动态传递 API 架构升级（V3）</h3>
+              <div class="shrink-0 font-mono text-xs text-white/45">Phase 3</div>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-white/70">
+              解决“接口写死”的扩展瓶颈：将市场、指数、字段映射与筛选参数做成前端可配置的参数路由层，
+              支持海外指数与新数据源的快速扩充，形成商业级可持续迭代能力。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="mt-12 border-t border-white/10 pt-6 text-xs text-white/50">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <p>© <span id="year"></span> [你的名字] · Project Detail Page (Static)</p>
+          <div class="flex items-center gap-3">
+            <a class="focus-ring rounded-lg px-2 py-1 text-white/60 transition hover:bg-white/10 hover:text-text" href="#features">Features</a>
+            <a class="focus-ring rounded-lg px-2 py-1 text-white/60 transition hover:bg-white/10 hover:text-text" href="#demo">Demo</a>
+            <a class="focus-ring rounded-lg px-2 py-1 text-white/60 transition hover:bg-white/10 hover:text-text" href="#timeline">Timeline</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        const yearEl = document.getElementById("year");
+        if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+        const nlInput = document.getElementById("nlInput");
+        const runBtn = document.getElementById("runBtn");
+        const runIcon = document.getElementById("runIcon");
+        const runLabel = document.getElementById("runLabel");
+        const fillExampleBtn = document.getElementById("fillExampleBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const jsonOut = document.getElementById("jsonOut");
+        const sqlOut = document.getElementById("sqlOut");
+        const copyJsonBtn = document.getElementById("copyJsonBtn");
+        const copySqlBtn = document.getElementById("copySqlBtn");
+        const statusDot = document.getElementById("statusDot");
+        const statusText = document.getElementById("statusText");
+        const resultsPanel = document.getElementById("resultsPanel");
+
+        const examplePrompt =
+          "寻找市盈率小于20，且上周五放量突破的科技股...";
+
+        const mockStrategy = {
+          intent: "screen_stocks",
+          market: "CN",
+          universe: "A股",
+          sector: "科技",
+          constraints: {
+            pe_max: 20,
+            breakout: {
+              type: "volume_breakout",
+              day: "last_friday",
+              volume_multiplier_min: 1.8,
+            },
+          },
+          factors: ["fundamental:pe", "technical:breakout", "technical:volume"],
+          output: {
+            sort_by: "breakout_strength",
+            limit: 30,
+          },
+          trace: {
+            parser: "mock-llm-intent-v2",
+            confidence: 0.86,
+          },
+        };
+
+        function formatJson(obj) {
+          return JSON.stringify(obj, null, 2);
+        }
+
+        function setStatus(mode) {
+          // mode: idle | loading | done
+          if (mode === "loading") {
+            statusDot.className =
+              "h-1.5 w-1.5 rounded-full bg-indigo-400 shadow-[0_0_14px_rgba(99,102,241,0.65)]";
+            statusText.textContent = "Running";
+          } else if (mode === "done") {
+            statusDot.className =
+              "h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.6)]";
+            statusText.textContent = "Done";
+          } else {
+            statusDot.className = "h-1.5 w-1.5 rounded-full bg-white/30";
+            statusText.textContent = "Ready";
+          }
+        }
+
+        function setButtonLoading(isLoading) {
+          runBtn.disabled = isLoading;
+          fillExampleBtn.disabled = isLoading;
+          clearBtn.disabled = isLoading;
+          if (isLoading) {
+            runIcon.textContent = "⏳";
+            runLabel.textContent = "正在通过 DeepSeek 解析意图...";
+          } else {
+            runIcon.textContent = "▶";
+            runLabel.textContent = "执行意图解析 (Run Analysis)";
+          }
+        }
+
+        function escapeSqlLiteral(s) {
+          return String(s || "").replaceAll("'", "''");
+        }
+
+        function normalizeIntent(rawObj) {
+          // Normalize to a flat-ish shape used by SQL generator.
+          const obj = rawObj && typeof rawObj === "object" ? rawObj : {};
+          const sector = obj.sector ?? obj.industry ?? obj.board ?? null;
+          const peMax =
+            obj.pe_max ??
+            obj.peMax ??
+            obj?.constraints?.pe_max ??
+            obj?.constraints?.peMax ??
+            null;
+          const turnover =
+            obj.turnover_ratio ??
+            obj.turnoverRatio ??
+            obj?.constraints?.turnover_ratio ??
+            null;
+          const indicator = obj.indicator ?? obj.signal ?? obj?.constraints?.indicator ?? null;
+
+          // A minimal "technical" signal hint
+          const volumeBreakout =
+            obj?.constraints?.breakout?.type === "volume_breakout" ||
+            /放量|volume/i.test(String(indicator || ""));
+
+          return {
+            sector,
+            pe_max: typeof peMax === "number" ? peMax : peMax ? Number(peMax) : null,
+            turnover_ratio:
+              typeof turnover === "number" ? turnover : turnover ? Number(turnover) : null,
+            indicator: indicator ? String(indicator) : null,
+            volume_breakout: Boolean(volumeBreakout),
+          };
+        }
+
+        function intentToSql(intentLike) {
+          const i = normalizeIntent(intentLike);
+          const where = ["t1.is_hs = 1"]; // example: A-share universe flag
+
+          if (i.pe_max && Number.isFinite(i.pe_max)) {
+            where.push(`t2.pe_ttm < ${i.pe_max}`);
+          }
+          if (i.turnover_ratio && Number.isFinite(i.turnover_ratio)) {
+            where.push(`t2.turnover_rate >= ${i.turnover_ratio}`);
+          }
+          if (i.sector) {
+            const kw = escapeSqlLiteral(i.sector);
+            where.push(`t1.industry LIKE '%${kw}%'`);
+          }
+          if (i.volume_breakout) {
+            // Example rule: last trading day's volume > MA(5)
+            where.push(`t3.vol > t3.ma_vol_5`);
+          }
+
+          const whereSql = where.length ? `WHERE\n  ${where.join("\n  AND ")}` : "";
+
+          return `-- Auto-generated SQL (demo)
+SELECT
+  t1.ts_code,
+  t1.name,
+  t1.industry,
+  t2.pe_ttm,
+  t2.turnover_rate,
+  t3.vol,
+  t3.ma_vol_5
+FROM stock_basic t1
+JOIN daily_indicators t2
+  ON t1.ts_code = t2.ts_code
+JOIN daily_factors t3
+  ON t1.ts_code = t3.ts_code
+${whereSql}
+ORDER BY
+  t2.pe_ttm ASC
+LIMIT 30;`;
+        }
+
+        function showLoadingSkeleton() {
+          jsonOut.textContent = [
+            "// 正在调用底层解析服务...",
+            "// 正在提取意图因子 (factors)...",
+          ].join("\n");
+          sqlOut.textContent = [
+            "-- 正在调用底层解析服务...",
+            "-- 正在生成 SQL 查询策略 (sql)...",
+          ].join("\n");
+        }
+
+        function resetOutputs() {
+          jsonOut.textContent =
+            "{\n  \"status\": \"idle\",\n  \"message\": \"点击左侧按钮开始解析\"\n}";
+          sqlOut.textContent =
+            "-- SQL will be generated here\n" +
+            "-- 示例：SELECT ts_code, name FROM stock_basic ... WHERE pe_ttm < 20;";
+          if (resultsPanel) resultsPanel.classList.add("hidden");
+        }
+
+        function stripPossibleCodeFences(text) {
+          const t = String(text || "").trim();
+          if (!t.startsWith("```")) return t;
+          // Remove triple-backtick fences if model accidentally returns them.
+          return t
+            .replace(/^```[a-zA-Z]*\s*/i, "")
+            .replace(/```$/i, "")
+            .trim();
+        }
+
+        async function runIntentAnalysis(userInput) {
+          const resp = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userInput }),
+          });
+
+          const text = await resp.text().catch(() => "");
+          let data = null;
+          try {
+            data = text ? JSON.parse(text) : null;
+          } catch {
+            data = null;
+          }
+
+          if (!resp.ok) {
+            const detail = data?.detail || data?.error || text || `${resp.status} ${resp.statusText}`;
+            throw new Error(String(detail));
+          }
+
+          const factors = data?.factors;
+          const sql = data?.sql;
+          if (!factors || typeof factors !== "object" || Array.isArray(factors) || typeof sql !== "string") {
+            throw new Error("Invalid response shape from /api/chat. Expected { factors: object, sql: string }");
+          }
+          return { factors, sql };
+        }
+
+        async function safeCopy(text) {
+          try {
+            await navigator.clipboard.writeText(text);
+            return true;
+          } catch {
+            return false;
+          }
+        }
+
+        let running = false;
+        runBtn.addEventListener("click", async () => {
+          if (running) return;
+
+          const prompt = (nlInput.value || "").trim();
+          if (!prompt) {
+            alert("请输入选股需求");
+            return;
+          }
+
+          running = true;
+          setStatus("loading");
+          setButtonLoading(true);
+          showLoadingSkeleton();
+          if (resultsPanel) resultsPanel.classList.add("hidden");
+
+          try {
+            const { factors, sql } = await runIntentAnalysis(prompt);
+            jsonOut.textContent = formatJson(factors);
+            sqlOut.textContent = String(sql);
+
+            if (resultsPanel) resultsPanel.classList.remove("hidden"); // simulate DB returned rows
+            setStatus("done");
+          } catch (err) {
+            const msg = err instanceof Error ? err.message : String(err);
+            jsonOut.textContent =
+              "{\n" +
+              '  "status": "error",\n' +
+              '  "message": "解析服务调用失败",\n' +
+              '  "detail": ' +
+              JSON.stringify(msg) +
+              "\n}";
+            sqlOut.textContent =
+              "-- SQL 未生成：解析服务失败\n" +
+              "-- 请检查 /api/chat、环境变量 DEEPSEEK_API_KEY 与网络状态";
+            if (resultsPanel) resultsPanel.classList.add("hidden");
+            setStatus("idle");
+          } finally {
+            setButtonLoading(false);
+            running = false;
+          }
+        });
+
+        fillExampleBtn.addEventListener("click", () => {
+          if (running) return;
+          nlInput.value = examplePrompt;
+          nlInput.focus();
+        });
+
+        clearBtn.addEventListener("click", () => {
+          if (running) return;
+          nlInput.value = "";
+          nlInput.focus();
+          setStatus("idle");
+          resetOutputs();
+        });
+
+        copyJsonBtn.addEventListener("click", async () => {
+          const ok = await safeCopy(jsonOut.textContent || "");
+          copyJsonBtn.querySelector("span[aria-hidden='true']").textContent = ok ? "✓" : "⎘";
+          window.setTimeout(() => {
+            copyJsonBtn.querySelector("span[aria-hidden='true']").textContent = "⎘";
+          }, 900);
+        });
+
+        copySqlBtn.addEventListener("click", async () => {
+          const ok = await safeCopy(sqlOut.textContent || "");
+          copySqlBtn.querySelector("span[aria-hidden='true']").textContent = ok ? "✓" : "⎘";
+          window.setTimeout(() => {
+            copySqlBtn.querySelector("span[aria-hidden='true']").textContent = "⎘";
+          }, 900);
+        });
+
+        // Smooth scroll for in-page anchors (for consistent behavior)
+        document.addEventListener("click", (e) => {
+          const a = e.target.closest("a[href^='#']");
+          if (!a) return;
+          const id = a.getAttribute("href").slice(1);
+          const el = id ? document.getElementById(id) : null;
+          if (!el) return;
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", "#" + id);
+        });
+      })();
+    </script>
+  </body>
+</html>
